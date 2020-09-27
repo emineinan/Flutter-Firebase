@@ -1,5 +1,6 @@
 import 'package:coffee_shop/models/brew.dart';
 import 'package:coffee_shop/screens/home/brew_list.dart';
+import 'package:coffee_shop/screens/home/settings_form.dart';
 import 'package:coffee_shop/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:coffee_shop/services/database.dart';
@@ -16,7 +17,7 @@ class Home extends StatelessWidget {
           builder: (context) {
             return Container(
               padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-              child: Text('bottom sheet'),
+              child: SettingForm(),
             );
           });
     }
