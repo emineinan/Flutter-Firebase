@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:breaking_bad_app/model/character.dart';
+import 'package:breaking_bad_app/screens/character_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
@@ -20,7 +21,7 @@ class _CharacterListState extends State<CharacterList> {
     setState(() {
       for (var i = 0; i < data.length; i++) {
         Character c = Character();
-        c.id = data[i]["id"];
+        c.id = data[i]["char_id"];
         c.name = data[i]["name"];
         c.img = data[i]["img"];
         c.nickname = data[i]["nickname"];
@@ -46,11 +47,21 @@ class _CharacterListState extends State<CharacterList> {
           child: ListView.builder(
               itemCount: characterList.length,
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text(characterList[index].name),
-                  subtitle: Text(characterList[index].nickname),
-                  leading: CircleAvatar(
-                    backgroundImage: NetworkImage(characterList[index].img),
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => CharacterDetail(
+                                  id: characterList[index].id,
+                                )));
+                  },
+                  child: ListTile(
+                    title: Text(characterList[index].name),
+                    subtitle: Text(characterList[index].nickname),
+                    leading: CircleAvatar(
+                      backgroundImage: NetworkImage(characterList[index].img),
+                    ),
                   ),
                 );
               }),
