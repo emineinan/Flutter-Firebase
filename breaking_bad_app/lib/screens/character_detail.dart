@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:breaking_bad_app/model/character.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -39,7 +40,12 @@ class _CharacterDetailState extends State<CharacterDetail> {
     return isLoad
         ? Scaffold(
             appBar: AppBar(
-              title: Text(character.name),
+              title: TypewriterAnimatedTextKit(
+                text: ["${character.name}"],
+                textStyle: TextStyle(fontSize: 25.0),
+                repeatForever: true,
+                speed: Duration(milliseconds: 400),
+              ),
             ),
           )
         : Scaffold(
