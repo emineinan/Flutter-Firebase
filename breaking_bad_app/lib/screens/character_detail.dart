@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:breaking_bad_app/functions/card.dart';
 import 'package:breaking_bad_app/model/character.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -27,6 +28,10 @@ class _CharacterDetailState extends State<CharacterDetail> {
     setState(() {
       character.name = data[0]["name"];
       character.img = data[0]["img"];
+      character.id = data[0]["char_id"];
+      character.nickname = data[0]["nickname"];
+      character.status = data[0]["status"];
+      character.birthday = data[0]["birthday"];
       isLoad = true;
     });
   }
@@ -41,6 +46,7 @@ class _CharacterDetailState extends State<CharacterDetail> {
   Widget build(BuildContext context) {
     return isLoad
         ? Scaffold(
+            backgroundColor: Colors.grey[400],
             appBar: AppBar(
               title: TypewriterAnimatedTextKit(
                 text: ["${character.name}"],
@@ -62,7 +68,18 @@ class _CharacterDetailState extends State<CharacterDetail> {
                     fadeDuration: Duration(seconds: 3),
                     fadeCurve: Curves.easeInCubic,
                   ),
-                )
+                ),
+                SizedBox(
+                  height: 10.0,
+                  width: 250.0,
+                  child: Divider(
+                    color: Theme.of(context).accentColor,
+                  ),
+                ),
+                buildCard("Name:", character.name),
+                buildCard("Nickname:", character.nickname),
+                buildCard("Birthday:", character.birthday),
+                buildCard("Status:", character.status),
               ],
             ),
           )
