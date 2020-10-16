@@ -5,6 +5,7 @@ import 'package:breaking_bad_app/model/character.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart';
+import 'package:image_fade/image_fade.dart';
 
 class CharacterDetail extends StatefulWidget {
   final int id;
@@ -25,6 +26,7 @@ class _CharacterDetailState extends State<CharacterDetail> {
 
     setState(() {
       character.name = data[0]["name"];
+      character.img = data[0]["img"];
       isLoad = true;
     });
   }
@@ -46,6 +48,22 @@ class _CharacterDetailState extends State<CharacterDetail> {
                 repeatForever: true,
                 speed: Duration(milliseconds: 400),
               ),
+            ),
+            body: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Center(
+                  child: ImageFade(
+                    image: NetworkImage(character.img),
+                    height: 300,
+                    alignment: Alignment.center,
+                    fit: BoxFit.cover,
+                    fadeDuration: Duration(seconds: 3),
+                    fadeCurve: Curves.easeInCubic,
+                  ),
+                )
+              ],
             ),
           )
         : Scaffold(
