@@ -21,17 +21,25 @@ class _CharacterDetailState extends State<CharacterDetail> {
   bool isLoad = false;
 
   void getCharacterwithId() async {
-    Response response =
-        await get("https://breakingbadapi.com/api/characters/${widget.id}");
+    Response response;
+    if (widget.id == -1) {
+      response = await get('https://breakingbadapi.com/api/character/random');
+    } else {
+      response =
+          await get('https://breakingbadapi.com/api/characters/${widget.id}');
+    }
     var data = await jsonDecode(response.body); //map
 
     setState(() {
-      character.name = data[0]["name"];
-      character.img = data[0]["img"];
+      character.name = data[0]["name"] == null ? "Unknown" : data[0]["name"];
+      character.img = data[0]["img"] == null ? "Unknown" : data[0]["img"];
       character.id = data[0]["char_id"];
-      character.nickname = data[0]["nickname"];
-      character.status = data[0]["status"];
-      character.birthday = data[0]["birthday"];
+      character.nickname =
+          data[0]["nickname"] == null ? "Unknown" : data[0]["nickname"];
+      character.status =
+          data[0]["status"] == null ? "Unknown" : data[0]["status"];
+      character.birthday =
+          data[0]["birthday"] == null ? "Unknown" : data[0]["birthday"];
       isLoad = true;
     });
   }

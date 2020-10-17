@@ -42,6 +42,22 @@ class _CharacterListState extends State<CharacterList> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Characters"),
+          actions: <Widget>[
+            FlatButton.icon(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => CharacterDetail(
+                                id: -1,
+                              )));
+                },
+                icon: Icon(Icons.autorenew),
+                label: Text(
+                  "Random",
+                  style: TextStyle(color: Colors.white, fontSize: 18.0),
+                ))
+          ],
         ),
         body: Container(
           child: ListView.builder(
