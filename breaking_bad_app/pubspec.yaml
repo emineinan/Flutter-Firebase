@@ -23,6 +23,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -32,10 +33,12 @@ dependencies:
   flutter_spinkit: ^4.1.2+1
   animated_text_kit: ^2.2.0
   image_fade: ^0.2.1
+  cloud_firestore: 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

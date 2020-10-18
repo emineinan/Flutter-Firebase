@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:breaking_bad_app/functions/card.dart';
 import 'package:breaking_bad_app/model/character.dart';
+import 'package:breaking_bad_app/screens/add_comments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart';
@@ -89,6 +90,17 @@ class _CharacterDetailState extends State<CharacterDetail> {
                 buildCard("Birthday:", character.birthday),
                 buildCard("Status:", character.status),
               ],
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => AddComments(
+                              character: character,
+                            )));
+              },
+              child: Icon(Icons.comment),
             ),
           )
         : Scaffold(
