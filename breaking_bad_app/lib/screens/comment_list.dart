@@ -26,6 +26,27 @@ class _CommentListState extends State<CommentList> {
     setState(() {});
   }
 
+  void deleteComment(String comment) async {
+    commentList.remove(comment);
+    await db
+        .collection("characters")
+        .document(widget.character.id.toString())
+        .setData({"comments": commentList});
+
+    setState(() {
+      Navigator.pop(context);
+    });
+
+    if (commentList.length == 0) {
+      await db
+          .collection("characters")
+          .document(widget.character.id.toString())
+          .delete();
+
+      setState(() {});
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -35,6 +56,7 @@ class _CommentListState extends State<CommentList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[400],
       appBar: AppBar(
         title: Text("${widget.character.name}"),
       ),
@@ -43,6 +65,15 @@ class _CommentListState extends State<CommentList> {
           itemBuilder: (context, index) {
             return ListTile(
               title: Text(commentList[index]),
+              trailing: GestureDetector(
+                child: Icon(
+                  Icons.delete,
+                  color: Colors.red,
+                ),
+                onTap: () {
+                  deleteComment(commentList[index]);
+                },
+              ),
             );
           }),
     );

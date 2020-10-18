@@ -40,6 +40,7 @@ class _CharacterListState extends State<CharacterList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        backgroundColor: Colors.grey[400],
         appBar: AppBar(
           title: Text("Characters"),
           actions: <Widget>[

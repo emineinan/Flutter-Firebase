@@ -20,6 +20,7 @@ class _AddCommentsState extends State<AddComments> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[400],
       body: Padding(
         padding: EdgeInsets.all(25),
         child: Column(
