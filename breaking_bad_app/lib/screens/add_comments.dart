@@ -14,16 +14,49 @@ class AddComments extends StatefulWidget {
 
 class _AddCommentsState extends State<AddComments> {
   final db = Firestore.instance;
+  String commentText;
+  List<dynamic> commentList = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.all(25),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              widget.character.name,
+              style: TextStyle(fontSize: 20),
+            ),
+            SizedBox(
+              height: 25,
+            ),
+            TextField(
+              onChanged: (value) {
+                commentText = value;
+              },
+              decoration: InputDecoration(hintText: "Add a commment."),
+            )
+          ],
+        ),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
+          final documentsRef = await db.collection("characters").getDocuments();
+          for (var doc in documentsRef.documents) {
+            if (doc.documentID == widget.character.id.toString()) {
+              commentList = doc.data["comments"];
+            }
+          }
+          commentList.add(commentText);
           await db
-              .collection('characters')
+              .collection("characters")
               .document(widget.character.id.toString())
-              .setData({"characterName": widget.character.name});
+              .setData({"comments": commentList});
+
+          Navigator.pop(context);
         },
         child: Icon(Icons.add_comment),
       ),
