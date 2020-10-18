@@ -4,6 +4,7 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:breaking_bad_app/functions/card.dart';
 import 'package:breaking_bad_app/model/character.dart';
 import 'package:breaking_bad_app/screens/add_comments.dart';
+import 'package:breaking_bad_app/screens/comment_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:http/http.dart';
@@ -63,6 +64,24 @@ class _CharacterDetailState extends State<CharacterDetail> {
                 repeatForever: true,
                 speed: Duration(milliseconds: 400),
               ),
+              actions: <Widget>[
+                FlatButton.icon(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (_) =>
+                                  CommentList(character: character)));
+                    },
+                    icon: Icon(
+                      Icons.search,
+                      color: Colors.white,
+                    ),
+                    label: Text(
+                      "Comments",
+                      style: TextStyle(color: Colors.white, fontSize: 18.0),
+                    ))
+              ],
             ),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

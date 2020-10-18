@@ -52,7 +52,10 @@ class _CharacterListState extends State<CharacterList> {
                                 id: -1,
                               )));
                 },
-                icon: Icon(Icons.autorenew),
+                icon: Icon(
+                  Icons.autorenew,
+                  color: Colors.white,
+                ),
                 label: Text(
                   "Random",
                   style: TextStyle(color: Colors.white, fontSize: 18.0),
