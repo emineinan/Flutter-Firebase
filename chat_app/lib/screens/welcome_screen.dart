@@ -25,8 +25,11 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 SizedBox(
                   width: 50.0,
                 ),
-                Container(
-                  child: Image.asset("images/logo.png"),
+                Hero(
+                  tag: "logo",
+                  child: Container(
+                    child: Image.asset("images/logo.png"),
+                  ),
                 )
               ],
             ),
@@ -37,7 +40,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                 child: Material(
                   elevation: 5.0,
-                  color: Colors.pink[100],
+                  color: Color(0xFF574b90),
                   borderRadius: BorderRadius.circular(30),
                   child: MaterialButton(
                     onPressed: () {
@@ -45,7 +48,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     },
                     minWidth: 170.0,
                     height: 30.0,
-                    child: Text("Login"),
+                    child: Text(
+                      "Login",
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 )),
             SizedBox(
@@ -55,7 +61,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
                 child: Material(
                   elevation: 5.0,
-                  color: Colors.pink[100],
+                  color: Color(0xFF574b90),
                   borderRadius: BorderRadius.circular(30),
                   child: MaterialButton(
                     onPressed: () {
@@ -63,7 +69,10 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     },
                     minWidth: 170.0,
                     height: 40.0,
-                    child: Text("Register"),
+                    child: Text(
+                      "Register",
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ))
           ],
