@@ -16,12 +16,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
       ),
-      initialRoute: "welcomeScreen",
+      initialRoute: WelcomeScreen.id,
       routes: {
-        "welcomeScreen": (context) => WelcomeScreen(),
-        "registerScreen": (context) => RegisterScreen(),
-        "loginScreen": (context) => LoginScreen(),
-        "chatScreen": (context) => ChatScreen()
+        WelcomeScreen.id: (context) => WelcomeScreen(),
+        RegisterScreen.id: (context) => RegisterScreen(),
+        LoginScreen.id: (context) => LoginScreen(),
+        ChatScreen.id: (context) => ChatScreen()
       },
     );
   }

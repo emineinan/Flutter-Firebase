@@ -1,7 +1,9 @@
+import 'package:chat_app/screens/login_screen.dart';
+import 'package:chat_app/screens/register_screen.dart';
 import 'package:flutter/material.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  WelcomeScreen({Key key}) : super(key: key);
+  static const String id = "welcomeScreen";
 
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
@@ -38,7 +40,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   color: Colors.pink[100],
                   borderRadius: BorderRadius.circular(30),
                   child: MaterialButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, LoginScreen.id);
+                    },
                     minWidth: 170.0,
                     height: 30.0,
                     child: Text("Login"),
@@ -54,7 +58,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                   color: Colors.pink[100],
                   borderRadius: BorderRadius.circular(30),
                   child: MaterialButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, RegisterScreen.id);
+                    },
                     minWidth: 170.0,
                     height: 40.0,
                     child: Text("Register"),
