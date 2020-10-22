@@ -7,7 +7,27 @@ class RegisterScreen extends StatefulWidget {
   _RegisterScreenState createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _RegisterScreenState extends State<RegisterScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation animationBorder;
+  Animation animationColor;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+        vsync: this, duration: Duration(seconds: 5), value: 0.2);
+
+    animationBorder = BorderRadiusTween(
+            begin: BorderRadius.circular(0.0), end: BorderRadius.circular(32.0))
+        .animate(controller);
+    controller.forward();
+    controller.addListener(() {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,14 +57,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(32)),
+                      borderRadius: animationBorder.value,
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 3,
                         color: Color(0xFF574b90),
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(32)),
+                      borderRadius: animationBorder.value,
                     )),
               ),
               SizedBox(
@@ -59,14 +79,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     contentPadding:
                         EdgeInsets.symmetric(vertical: 10.0, horizontal: 15.0),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(32)),
+                      borderRadius: animationBorder.value,
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         width: 3,
                         color: Color(0xFF574b90),
                       ),
-                      borderRadius: BorderRadius.all(Radius.circular(32)),
+                      borderRadius: animationBorder.value,
                     )),
               ),
               SizedBox(
