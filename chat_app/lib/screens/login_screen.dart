@@ -7,12 +7,26 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+        vsync: this, duration: Duration(seconds: 1), value: 0.2);
+    controller.forward();
+    controller.addListener(() {
+      setState(() {});
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomPadding: false,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white.withOpacity(controller.value),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 40.0, vertical: 100.0),
         child: Container(
