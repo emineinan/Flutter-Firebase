@@ -80,7 +80,7 @@ class _RegisterScreenState extends State<RegisterScreen>
                 height: 30,
               ),
               TextField(
-                keyboardType: TextInputType.emailAddress,
+                keyboardType: TextInputType.visiblePassword,
                 obscureText: true,
                 onChanged: (value) {
                   password = value;
