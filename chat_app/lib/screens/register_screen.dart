@@ -1,3 +1,5 @@
+import 'package:chat_app/screens/chat_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class RegisterScreen extends StatefulWidget {
@@ -9,6 +11,10 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen>
     with SingleTickerProviderStateMixin {
+  final auth = FirebaseAuth.instance;
+  String email;
+  String password;
+
   AnimationController controller;
   Animation animationBorder;
   Animation animationColor;
@@ -50,7 +56,10 @@ class _RegisterScreenState extends State<RegisterScreen>
                 height: 30,
               ),
               TextField(
-                onChanged: (value) {},
+                keyboardType: TextInputType.emailAddress,
+                onChanged: (value) {
+                  email = value;
+                },
                 decoration: InputDecoration(
                     hintText: "Email",
                     hintStyle: TextStyle(color: Color(0xFF574b90)),
@@ -71,8 +80,11 @@ class _RegisterScreenState extends State<RegisterScreen>
                 height: 30,
               ),
               TextField(
+                keyboardType: TextInputType.emailAddress,
                 obscureText: true,
-                onChanged: (value) {},
+                onChanged: (value) {
+                  password = value;
+                },
                 decoration: InputDecoration(
                     hintText: "Password",
                     hintStyle: TextStyle(color: Color(0xFF574b90)),
@@ -100,7 +112,18 @@ class _RegisterScreenState extends State<RegisterScreen>
                     color: Color(0xFF574b90),
                     borderRadius: BorderRadius.circular(30),
                     child: MaterialButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        try {
+                          final newUser =
+                              await auth.createUserWithEmailAndPassword(
+                                  email: email, password: password);
+                          if (newUser != null) {
+                            Navigator.pushNamed(context, ChatScreen.id);
+                          }
+                        } catch (e) {
+                          print(e.message);
+                        }
+                      },
                       minWidth: 170.0,
                       child: Text(
                         "Register",
