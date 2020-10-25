@@ -72,19 +72,21 @@ class _ChatScreenState extends State<ChatScreen> {
                   );
                 }
                 final messages = snapshot.data.documents;
-                List<Text> messageWidgets = [];
+                List<MessageBubbles> messageWidgets = [];
                 for (var message in messages) {
                   final messageText = message.data["text"];
                   final messageSender = message.data["sender"];
-                  final messageWidget = Text(
-                    "$messageText sender: $messageSender",
-                    style: TextStyle(color: Colors.black),
+                  final messageWidget = MessageBubbles(
+                    text: messageText,
+                    sender: messageSender,
                   );
                   messageWidgets.add(messageWidget);
                 }
-                return Column(
+                return Expanded(
+                    child: ListView(
+                  padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
                   children: messageWidgets,
-                );
+                ));
               }),
           Container(
             decoration: kMessageContainerDecoration,
@@ -115,6 +117,42 @@ class _ChatScreenState extends State<ChatScreen> {
           )
         ],
       )),
+    );
+  }
+}
+
+class MessageBubbles extends StatelessWidget {
+  final String text;
+  final String sender;
+
+  const MessageBubbles({Key key, this.text, this.sender}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.all(15.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: <Widget>[
+          Text(
+            "sender",
+            style: TextStyle(color: Colors.pink, fontSize: 12.0),
+          ),
+          SizedBox(height: 5.0),
+          Material(
+            borderRadius: BorderRadius.circular(30.0),
+            elevation: 10.0,
+            color: Color(0xFF574b90),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              child: Text(
+                "$text",
+                style: TextStyle(color: Colors.white, fontSize: 15),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
