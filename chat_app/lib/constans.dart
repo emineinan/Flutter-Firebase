@@ -9,4 +9,4 @@ const kMessageTextFieldDecoration = InputDecoration(
     border: InputBorder.none);
 
 const kMessageContainerDecoration = BoxDecoration(
-    border: Border(top: BorderSide(color: Colors.pink, width: 2.0)));
+    border: Border(top: BorderSide(color: Color(0xFF574b90), width: 2.0)));

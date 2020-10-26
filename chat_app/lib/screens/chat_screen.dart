@@ -40,7 +40,7 @@ class _ChatScreenState extends State<ChatScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Color(0xFF574b90),
         actions: <Widget>[
           FlatButton.icon(
               onPressed: () async {
@@ -51,7 +51,10 @@ class _ChatScreenState extends State<ChatScreen> {
                   print(e.message);
                 }
               },
-              icon: Icon(Icons.close),
+              icon: Icon(
+                Icons.close,
+                color: Colors.white,
+              ),
               label: Text(
                 "Sign out",
                 style: TextStyle(color: Colors.white),
@@ -64,7 +67,10 @@ class _ChatScreenState extends State<ChatScreen> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           StreamBuilder<QuerySnapshot>(
-              stream: firestore.collection("messages").snapshots(),
+              stream: firestore
+                  .collection("messages")
+                  .orderBy("creatingDate", descending: true)
+                  .snapshots(),
               builder: (context, snapshot) {
                 if (!snapshot.hasData) {
                   return Center(
@@ -88,6 +94,7 @@ class _ChatScreenState extends State<ChatScreen> {
                 }
                 return Expanded(
                     child: ListView(
+                  reverse: true,
                   padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
                   children: messageWidgets,
                 ));
@@ -108,9 +115,11 @@ class _ChatScreenState extends State<ChatScreen> {
                 ),
                 FlatButton(
                   onPressed: () async {
-                    await firestore
-                        .collection("messages")
-                        .add({"text": message, "sender": user.email});
+                    await firestore.collection("messages").add({
+                      "text": message,
+                      "sender": user.email,
+                      "creatingDate": DateTime.now()
+                    });
                     messageTextFieldController.clear();
                   },
                   child: Text(
