@@ -50,10 +50,12 @@ class _RegisterScreenState extends State<RegisterScreen>
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Hero(
-                  tag: "logo",
-                  child: Container(
-                    child: Image.asset("images/logo2.png"),
+                Flexible(
+                  child: Hero(
+                    tag: "logo",
+                    child: Container(
+                      child: Image.asset("images/logo2.png"),
+                    ),
                   ),
                 ),
                 SizedBox(
