@@ -1,4 +1,5 @@
 import 'package:blog_app/authentication.dart';
+import 'package:blog_app/dialogbox.dart';
 import 'package:flutter/material.dart';
 
 class LoginRegisterPage extends StatefulWidget {
@@ -14,6 +15,8 @@ class LoginRegisterPage extends StatefulWidget {
 enum PageType { login, register }
 
 class _LoginRegisterPageState extends State<LoginRegisterPage> {
+  DialogBox dialogBox = DialogBox();
+
   final formKey = GlobalKey<FormState>();
   PageType _pageType = PageType.login;
   String email = "";
@@ -38,14 +41,12 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
       try {
         if (_pageType == PageType.login) {
           String userId = await widget.auth.signIn(email, password);
-          print("sign in" + userId);
         } else {
           String userId = await widget.auth.signUp(email, password);
-          print("sign up" + userId);
         }
         widget.onSignedIn();
       } catch (e) {
-        print(e.toString());
+        dialogBox.informationBox(context, "ERROR", e.message);
       }
     }
   }
