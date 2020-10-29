@@ -1,5 +1,6 @@
 import 'package:blog_app/home_page.dart';
 import 'package:blog_app/login_register_page.dart';
+import 'package:blog_app/mapping.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,6 +13,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.pink),
-        home: HomePage());
+        home: MappingPage());
   }
 }
