@@ -1,7 +1,11 @@
+import 'package:blog_app/authentication.dart';
 import 'package:flutter/material.dart';
 
 class LoginRegisterPage extends StatefulWidget {
-  LoginRegisterPage({Key key}) : super(key: key);
+  final AuthOperation auth;
+  final VoidCallback onSignedIn;
+
+  LoginRegisterPage({Key key, this.auth, this.onSignedIn}) : super(key: key);
 
   @override
   _LoginRegisterPageState createState() => _LoginRegisterPageState();
@@ -27,6 +31,22 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
     setState(() {
       _pageType = PageType.login;
     });
+  }
+
+  void submit() async {
+    if (saveForm()) {
+      try {
+        if (_pageType == PageType.login) {
+          String userId = await widget.auth.signIn(email, password);
+          print("sign in" + userId);
+        } else {
+          String userId = await widget.auth.signUp(email, password);
+          print("sign up" + userId);
+        }
+      } catch (e) {
+        print(e.toString());
+      }
+    }
   }
 
   bool saveForm() {
@@ -93,7 +113,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
       return [
         RaisedButton(
             padding: EdgeInsets.all(8.0),
-            onPressed: saveForm,
+            onPressed: submit,
             child: Text(
               "LOGIN",
               style: TextStyle(fontSize: 20.0),
@@ -113,7 +133,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
       return [
         RaisedButton(
             padding: EdgeInsets.all(8.0),
-            onPressed: saveForm,
+            onPressed: submit,
             child: Text(
               "REGISTER",
               style: TextStyle(fontSize: 20.0),

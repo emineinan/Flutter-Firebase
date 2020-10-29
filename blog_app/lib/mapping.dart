@@ -46,7 +46,10 @@ class _MappingPageState extends State<MappingPage> {
   Widget build(BuildContext context) {
     switch (authStatus) {
       case AuthStatus.notSignIn:
-        return LoginRegisterPage();
+        return LoginRegisterPage(
+          auth: widget.auth,
+          onSignedIn: _signedIn,
+        );
         break;
       case AuthStatus.signIn:
         return HomePage();

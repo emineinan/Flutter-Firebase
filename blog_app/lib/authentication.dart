@@ -32,6 +32,9 @@ class AuthService implements AuthOperation {
 
   Future<String> getCurrentUser() async {
     FirebaseUser user = await _auth.currentUser();
+    if (user == null) {
+      return null;
+    }
     return user.uid;
   }
 }

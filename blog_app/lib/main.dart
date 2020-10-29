@@ -1,3 +1,4 @@
+import 'package:blog_app/authentication.dart';
 import 'package:blog_app/home_page.dart';
 import 'package:blog_app/login_register_page.dart';
 import 'package:blog_app/mapping.dart';
@@ -13,6 +14,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(primarySwatch: Colors.pink),
-        home: MappingPage());
+        home: MappingPage(
+          auth: AuthService(),
+        ));
   }
 }
