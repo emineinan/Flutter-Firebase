@@ -1,13 +1,26 @@
+import 'package:blog_app/authentication.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({Key key}) : super(key: key);
+  final AuthOperation auth;
+  final VoidCallback onSignedOut;
+
+  HomePage({Key key, this.auth, this.onSignedOut}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  void _logoutUser() async {
+    try {
+      await widget.auth.signOut();
+      widget.onSignedOut();
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +39,7 @@ class _HomePageState extends State<HomePage> {
             children: <Widget>[
               FlatButton.icon(
                   color: Colors.transparent,
-                  onPressed: () {},
+                  onPressed: _logoutUser,
                   icon: Icon(
                     Icons.exit_to_app,
                     color: Colors.white,

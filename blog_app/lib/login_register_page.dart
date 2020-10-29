@@ -43,6 +43,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
           String userId = await widget.auth.signUp(email, password);
           print("sign up" + userId);
         }
+        widget.onSignedIn();
       } catch (e) {
         print(e.toString());
       }

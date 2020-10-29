@@ -52,7 +52,10 @@ class _MappingPageState extends State<MappingPage> {
         );
         break;
       case AuthStatus.signIn:
-        return HomePage();
+        return HomePage(
+          auth: widget.auth,
+          onSignedOut: _signedOut,
+        );
         break;
       default:
         break;
