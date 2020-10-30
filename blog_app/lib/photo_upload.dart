@@ -11,13 +11,13 @@ class PhotoUpload extends StatefulWidget {
 }
 
 class _PhotoUploadState extends State<PhotoUpload> {
-  File image;
-  final picker = ImagePicker();
+  PickedFile _imageFile;
+  final ImagePicker _picker = ImagePicker();
 
   Future getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    final pickedFile = await _picker.getImage(source: ImageSource.camera);
     setState(() {
-      image = File(pickedFile.path);
+      _imageFile = pickedFile;
     });
   }
 
@@ -30,7 +30,10 @@ class _PhotoUploadState extends State<PhotoUpload> {
       ),
       body: Center(
         child:
-            image == null ? Text("No photo uploaded yet.") : Image.file(image),
+            //image == null ? Text("No photo uploaded yet.") : Image.file(image),
+            _imageFile == null
+                ? Text("No photo uploaded yet.")
+                : Image.file(File(_imageFile.path)),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: getImage,
