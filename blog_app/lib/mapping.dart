@@ -58,7 +58,7 @@ class _MappingPageState extends State<MappingPage> {
         );
         break;
       default:
-        break;
+        return null;
     }
   }
 }

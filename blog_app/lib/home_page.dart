@@ -1,4 +1,5 @@
 import 'package:blog_app/authentication.dart';
+import 'package:blog_app/photo_upload.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -50,7 +51,10 @@ class _HomePageState extends State<HomePage> {
                   )),
               FlatButton.icon(
                   color: Colors.transparent,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => PhotoUpload()));
+                  },
                   icon: Icon(
                     Icons.add_a_photo,
                     color: Colors.white,
