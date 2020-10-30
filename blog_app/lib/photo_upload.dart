@@ -11,6 +11,9 @@ class PhotoUpload extends StatefulWidget {
 }
 
 class _PhotoUploadState extends State<PhotoUpload> {
+  final formKey = GlobalKey<FormState>();
+  String myValue;
+
   PickedFile _imageFile;
   final ImagePicker _picker = ImagePicker();
 
@@ -19,6 +22,16 @@ class _PhotoUploadState extends State<PhotoUpload> {
     setState(() {
       _imageFile = pickedFile;
     });
+  }
+
+  bool saveForm() {
+    final form = formKey.currentState;
+    if (form.validate()) {
+      form.save();
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
@@ -30,16 +43,56 @@ class _PhotoUploadState extends State<PhotoUpload> {
       ),
       body: Center(
         child:
-            //image == null ? Text("No photo uploaded yet.") : Image.file(image),
-            _imageFile == null
-                ? Text("No photo uploaded yet.")
-                : Image.file(File(_imageFile.path)),
+            //image == null ? Text("No photo uploaded yet.") : Image.file(image),  //Image.file(File(_imageFile.path)),
+            _imageFile == null ? Text("No photo uploaded yet.") : photoPost(),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: getImage,
         tooltip: "Add Photo",
         child: Icon(Icons.add_a_photo),
       ),
+    );
+  }
+
+  Widget photoPost() {
+    return Container(
+      margin: EdgeInsets.all(16.0),
+      child: Form(
+          key: formKey,
+          child: Column(
+            children: <Widget>[
+              Image.file(
+                File(_imageFile.path),
+                height: 330.0,
+                width: 660.0,
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: "Explanation",
+                ),
+                validator: (value) {
+                  return value.isEmpty ? "Enter an explanation" : null;
+                },
+                onSaved: (newValue) {
+                  myValue = newValue;
+                  return myValue;
+                },
+              ),
+              SizedBox(
+                height: 15.0,
+              ),
+              RaisedButton(
+                onPressed: saveForm,
+                elevation: 10.0,
+                child: Text("ADD NEW POST"),
+                textColor: Colors.white,
+                color: Colors.pink,
+              )
+            ],
+          )),
     );
   }
 }
