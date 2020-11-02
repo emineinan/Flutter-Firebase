@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -13,6 +14,7 @@ class PhotoUpload extends StatefulWidget {
 class _PhotoUploadState extends State<PhotoUpload> {
   final formKey = GlobalKey<FormState>();
   String myValue;
+  String url;
 
   PickedFile _imageFile;
   final ImagePicker _picker = ImagePicker();
@@ -31,6 +33,20 @@ class _PhotoUploadState extends State<PhotoUpload> {
       return true;
     } else {
       return false;
+    }
+  }
+
+  void submitPhoto() async {
+    if (saveForm()) {
+      final StorageReference photoRef =
+          FirebaseStorage.instance.ref().child("photos");
+      var timeKey = new DateTime.now();
+      final StorageUploadTask uploadTask = photoRef
+          .child(timeKey.toIso8601String() + ".jpg")
+          .putFile((File(_imageFile.path)));
+      var imageUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
+      url = imageUrl.toString();
+      print("url= " + url);
     }
   }
 
@@ -85,7 +101,7 @@ class _PhotoUploadState extends State<PhotoUpload> {
                 height: 15.0,
               ),
               RaisedButton(
-                onPressed: saveForm,
+                onPressed: submitPhoto,
                 elevation: 10.0,
                 child: Text("ADD NEW POST"),
                 textColor: Colors.white,
