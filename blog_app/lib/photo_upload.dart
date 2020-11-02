@@ -1,8 +1,11 @@
 import 'dart:io';
 
+import 'package:blog_app/home_page.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class PhotoUpload extends StatefulWidget {
   PhotoUpload({Key key}) : super(key: key);
@@ -46,8 +49,32 @@ class _PhotoUploadState extends State<PhotoUpload> {
           .putFile((File(_imageFile.path)));
       var imageUrl = await (await uploadTask.onComplete).ref.getDownloadURL();
       url = imageUrl.toString();
-      print("url= " + url);
+      goHomePage();
+      saveToDatabase(url);
     }
+  }
+
+  void saveToDatabase(url) {
+    var dbTimeKey = new DateTime.now();
+    var formatDate = new DateFormat("MMMM d,yyyy");
+    var formatTime = new DateFormat("EEE, hh:mm aaa");
+
+    String date = formatDate.format(dbTimeKey);
+    String time = formatTime.format(dbTimeKey);
+
+    DatabaseReference dbRef = FirebaseDatabase.instance.reference();
+    var data = {
+      "photo": url,
+      "explanation": myValue,
+      "date": date,
+      "time": time
+    };
+    dbRef.child("Posts").push().set(data);
+  }
+
+  void goHomePage() {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => HomePage()));
   }
 
   @override
