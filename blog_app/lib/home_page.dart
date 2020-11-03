@@ -57,7 +57,19 @@ class _HomePageState extends State<HomePage> {
         title: Text("Home"),
         centerTitle: true,
       ),
-      body: Container(),
+      body: Container(
+        child: postList.length == 0
+            ? Text("No post uploaded yet.")
+            : ListView.builder(
+                itemCount: postList.length,
+                itemBuilder: (context, index) {
+                  return postCard(
+                      postList[index].image,
+                      postList[index].explanation,
+                      postList[index].date,
+                      postList[index].time);
+                }),
+      ),
       bottomNavigationBar: BottomAppBar(
         color: Colors.deepPurpleAccent,
         child: Container(
@@ -104,6 +116,48 @@ class _HomePageState extends State<HomePage> {
                   ))
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget postCard(String image, String explanation, String date, String time) {
+    return Card(
+      elevation: 10.0,
+      margin: EdgeInsets.all(15.0),
+      child: Container(
+        padding: EdgeInsets.all(10.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  date,
+                  style: Theme.of(context).textTheme.subtitle1,
+                  textAlign: TextAlign.center,
+                ),
+                Text(
+                  time,
+                  style: Theme.of(context).textTheme.subtitle1,
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 15.0,
+            ),
+            Image.network(
+              image,
+              fit: BoxFit.cover,
+            ),
+            Text(
+              explanation,
+              style: Theme.of(context).textTheme.bodyText1,
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );
