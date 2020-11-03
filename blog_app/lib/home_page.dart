@@ -1,5 +1,7 @@
 import 'package:blog_app/authentication.dart';
 import 'package:blog_app/photo_upload.dart';
+import 'package:blog_app/posts.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -13,6 +15,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<Posts> postList = [];
   void _logoutUser() async {
     try {
       await widget.auth.signOut();
@@ -20,6 +23,31 @@ class _HomePageState extends State<HomePage> {
     } catch (e) {
       print(e.toString());
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    DatabaseReference ref =
+        FirebaseDatabase.instance.reference().child("Posts");
+
+    ref.once().then((DataSnapshot snapshot) {
+      var ids = snapshot.value.keys;
+      var data = snapshot.value;
+      postList.clear();
+
+      for (var inKey in ids) {
+        Posts post = new Posts(
+            image: data[inKey]["image"],
+            explanation: data[inKey]["explanation"],
+            date: data[inKey]["date"],
+            time: data[inKey]["time"]);
+        postList.add(post);
+      }
+      setState(() {
+        print(postList.length);
+      });
+    });
   }
 
   @override
