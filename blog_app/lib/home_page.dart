@@ -71,7 +71,7 @@ class _HomePageState extends State<HomePage> {
                 }),
       ),
       bottomNavigationBar: BottomAppBar(
-        color: Colors.deepPurpleAccent,
+        color: Colors.black,
         child: Container(
           margin: EdgeInsets.only(left: 20.0, right: 20.0),
           child: Row(
@@ -151,6 +151,9 @@ class _HomePageState extends State<HomePage> {
             Image.network(
               image,
               fit: BoxFit.cover,
+            ),
+            SizedBox(
+              height: 15.0,
             ),
             Text(
               explanation,

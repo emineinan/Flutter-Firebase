@@ -121,7 +121,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
               style: TextStyle(fontSize: 20.0),
             ),
             textColor: Colors.white,
-            color: Colors.pink),
+            color: Colors.black),
         FlatButton(
           onPressed: goRegisterPage,
           child: Text(
@@ -141,7 +141,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
               style: TextStyle(fontSize: 20.0),
             ),
             textColor: Colors.white,
-            color: Colors.pink),
+            color: Colors.black),
         FlatButton(
           onPressed: goLoginPage,
           child: Text(

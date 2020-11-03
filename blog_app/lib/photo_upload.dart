@@ -91,6 +91,7 @@ class _PhotoUploadState extends State<PhotoUpload> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: getImage,
+        backgroundColor: Colors.black,
         tooltip: "Add Photo",
         child: Icon(Icons.add_a_photo),
       ),
@@ -132,7 +133,7 @@ class _PhotoUploadState extends State<PhotoUpload> {
                 elevation: 10.0,
                 child: Text("ADD NEW POST"),
                 textColor: Colors.white,
-                color: Colors.pink,
+                color: Colors.black,
               )
             ],
           )),
