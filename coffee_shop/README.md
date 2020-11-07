@@ -1,6 +1,7 @@
 # Coffee Shop
 Coffee Shop app with a database (Firebase Firestore) and an authentication system (using Firebase auth).
 
+
 <img src=https://user-images.githubusercontent.com/56589369/94408082-fe5cd000-017c-11eb-9b87-5b90bf10816f.png height="430" width="250">  <img src=https://user-images.githubusercontent.com/56589369/94408098-03218400-017d-11eb-98a7-dabcf92b723b.png height="430" width="250">
 
 
